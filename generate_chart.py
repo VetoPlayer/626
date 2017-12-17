@@ -131,7 +131,7 @@ def generate_chart(image, palette, scale, colours, no_open):
     im = rotate(im) 
     chart_page = chart(im, palette)
 
-    outfile = 'output/{}.html'.format("_".join(image.split(".")[:-1]))
+    outfile = 'output/{}.html'.format("_".join(image.split("/")[-1].split(".")[:-1]))
 
     with open(outfile, 'w') as f:
         f.write(chart_page)
