@@ -5,7 +5,9 @@ Ih.
 
 ```
 pyenv local 3.6.3
-pip install -r requirements
-python generate_chart.py test_image.png -s2
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+./ih test_image.png -s2
 ```
 

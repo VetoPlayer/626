@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import os
 import json
 import webbrowser
@@ -58,7 +59,7 @@ def chart(im, palette):
     histo = sorted(im.getcolors())
 
     legend = {}
-    html = ["<html>"]
+    html = ['<html><meta charset="utf-8">']
 
     with open("styling.css") as s:
         html.append("<style>" + "".join(s.readlines()) + "</style>")
