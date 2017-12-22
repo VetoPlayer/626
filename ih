@@ -7,6 +7,9 @@ import webbrowser
 import click
 from PIL import Image
 
+STARS = ['✚', '✽', '※', '✷', '⌬', '❐', '❄', '✔', '◀', '⊐', '♠', '★', '»', '✿', '⟘', '❦', '⟒', '❦', '⚉', '♣', '▷', '♦', '×', '«', '△', '⊔', '➤', '⚑', '◼', '⬇', '✭', '⧓', '❤', '✤', '⟙', '✾', '∀', '⊕', '♥', '⬆', '⚇', '◼', '✰']
+
+
 with open("data/dmc.json") as w:
     DMC = json.load(w)
 
@@ -64,10 +67,9 @@ def chart(im, palette):
     with open("styling.css") as s:
         html.append("<style>" + "".join(s.readlines()) + "</style>")
 
-    stars = '◼✤✷✽❤✰❐❄➤⬆⬇♠♣♥♦♞♟✚⚑⚉✔❦✭⌬'
     for idx, x in enumerate(histo):
         h = rgb2hex(x[1])
-        legend[h] = stars[idx % len(stars)]
+        legend[h] = STARS[idx % len(STARS)]
 
     html.append('<table><tr><td class="zztop"><table class="legend">')
     html.append('<tr><td>X</td><td># sts</td><td>{} code</td><td>{} name</td></tr>'.format(palette, palette))
