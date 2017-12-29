@@ -37,4 +37,4 @@ table {
 }
 
 .hardborder { "; box-shadow:inset 0px 0px 0px 4px #f00;" }
-.normalborder { "; box-shadow:inset 0px 0px 0px 0.5px #000;" }
+.normalborder {"; box-shadow:inset 0px 0px 0px 0.5px #000;" }
