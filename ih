@@ -18,20 +18,21 @@ def rotate(im):
     return im.transpose(Image.FLIP_TOP_BOTTOM).transpose(Image.ROTATE_270)
 
 
-def recolor(oldimage, palettename, colorlimit):
+def recolor(origimage, palettename, colorlimit):
     """Given a Pillow Image, a pallette, and a colour limit; re-color"""
     palettedata = sum([x['RGB'] for x in DMC], [])[:256] ## NOTE Pillow Limitation
 
     palimage = Image.new('P', (16, 16))
     palimage.putpalette(palettedata)
 
-    oldimage = oldimage.convert('P', palette=Image.ADAPTIVE, colors=colorlimit)
-    oldimage = oldimage.convert('RGB')
+    mode = (origimage.convert("RGB") #force
+            .convert('P', palette=Image.ADAPTIVE, colors=colorlimit) #reduce
+            .convert('RGB')) #restore
 
-    newimage = oldimage.im.convert('P', 0, palimage.im)
-    im = oldimage._new(newimage)
+    newimage = mode.im.convert('P', 0, palimage.im) #convert
+    im = mode._new(newimage).convert("RGB") #save and restore
 
-    return im.convert('RGB')
+    return im
 
 
 def rgb2hex(pix):
