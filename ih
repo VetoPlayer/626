@@ -9,6 +9,7 @@ from PIL import Image
 
 STARS = ['✚', '✽', '※', '✷', '❐', '❄', '✔', '◀', '⊐', '♠', '★', '»', '✿', '⟘', '❦', '⟒', '❦', '⚉', '♣', '▷', '♦', '×', '«', '△', '⊔', '➤', '⚑', '◼', '⬇', '✭', '⧓', '❤', '✤', '⟙', '✾', '∀', '⊕', '♥', '⬆', '⚇', '◼', '✰']
 
+TRANSPARENCY = (255, 255, 255)
 
 with open("data/dmc.json") as w:
     DMC = json.load(w)
@@ -20,6 +21,14 @@ def rotate(im):
 
 def recolor(origimage, palettename, colorlimit):
     """Given a Pillow Image, a pallette, and a colour limit; re-color"""
+
+    ##optional transparency fix
+    if 'transparency' in origimage.info:
+        alpha = origimage.convert('RGBA').split()[-1]
+        bg = Image.new("RGBA", origimage.size, TRANSPARENCY + (255,))
+        bg.paste(origimage, mask=alpha)
+        origimage = bg
+
     palettedata = sum([x['RGB'] for x in DMC], [])[:256] ## NOTE Pillow Limitation
 
     palimage = Image.new('P', (16, 16))
