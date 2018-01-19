@@ -9,20 +9,28 @@ from skimage.color import deltaE_ciede2000
 def rgb2one(r):
     return (float(r[0]/256),float(r[1]/256),float(r[2]/256))
     
-with open("dmc.json") as w:
+##with open("dmc.json") as w:
+#with open("limited.json") as w:
+with open("raw/color.json") as w:
     DMC = json.load(w)
+
+
+def hex_to_rgb(value):
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
 
 seen = []
 for i in DMC:
-    irgb = i["RGB"]
-    icol = i["ColorName"]
+    icol = i["Description"]
     ihex = "#"+i["Hex"]
+    irgb = hex_to_rgb(ihex)
 
     for j in DMC:
-        jrgb = j["RGB"]
-        jcol = j["ColorName"]
+        jcol = j["Description"]
         jhex = "#"+j["Hex"]
+        jrgb = hex_to_rgb(jhex)
 
         if icol == jcol:
             continue
